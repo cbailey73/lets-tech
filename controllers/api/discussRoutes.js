@@ -3,7 +3,7 @@ const withAuth = require('../../utils/auth');
 const { Post, Comment } = require('../../models');
 
 // Route to display all posts and comments
-router.get('/discuss', async (req, res) => {
+router.get('/discuss', withAuth, async (req, res) => {
     try {
         const postData = await Post.findAll({ include: Comment }); // Include comments
         const posts = postData.map((post) => post.get({ plain: true }));

@@ -3,20 +3,16 @@ const { Post } = require('../models');
 const withAuth = require('../utils/auth');
 
 // Fetch posts for the homepage
-router.get('/', withAuth, async (req, res) => {
+router.get('/homepage', async (req, res) => {
   try {
-    const postsData = await Post.findAll({
-      order: [['updatedOn', 'DESC']],
-    });
+      const postData = await Post.findAll({ include: Comment }); // Include comments
+      const posts = postData.map((post) => post.get({ plain: true }));
 
-    const posts = postsData.map((post) => post.get({ plain: true }));
-
-    res.render('homepage', {
-      posts,
-      logged_in: req.session.logged_in,
-    });
+      res.render('homepage', {
+        posts
+      });
   } catch (err) {
-    res.status(500).json(err);
+      res.status(500).json({ message: 'An error has occurred' });
   }
 });
 
