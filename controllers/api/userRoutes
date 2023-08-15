@@ -12,7 +12,6 @@ router.post('/login', async (req, res) => {
       return;
     }
 
-    // add checkPassword with bcyrpt function to models
     const validPassword = await userData.checkPassword(req.body.password);
 
     if (!validPassword) {

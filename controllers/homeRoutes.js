@@ -1,11 +1,11 @@
 const router = require('express').Router();
-const { User } = require('../models');
+const { Post } = require('../models');
 const withAuth = require('../utils/auth');
 
 // Fetch posts for the homepage
 router.get('/', withAuth, async (req, res) => {
   try {
-    const postsData = await Posts.findAll({
+    const postsData = await Post.findAll({
       order: [['updatedOn', 'DESC']],
     });
 
