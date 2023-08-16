@@ -1,21 +1,6 @@
 const router = require('express').Router();
 const withAuth = require('../../utils/auth');
-const { Post, Comment } = require('../../models');
-
-// Route to display all posts and comments
-router.get('/discuss', withAuth, async (req, res) => {
-    try {
-        const postData = await Post.findAll({ include: Comment }); // Include comments
-        const posts = postData.map((post) => post.get({ plain: true }));
-
-        res.render('homepage', {
-          posts,
-          logged_in: req.session.logged_in,
-        });
-    } catch (err) {
-        res.status(500).json({ message: 'An error has occurred' });
-    }
-});
+const { Post, Comment, User } = require('../../models');
 
 // Route to create a new post
 router.post('/discuss', withAuth, async (req, res) => {
