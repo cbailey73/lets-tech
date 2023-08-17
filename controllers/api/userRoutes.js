@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const bcrypt = require('bcrypt');
 const { User } = require('../../models');
 
 router.post('/login', async (req, res) => {
@@ -32,6 +33,28 @@ router.post('/login', async (req, res) => {
     res.status(400).json(err);
   }
 });
+
+// Post signup
+router.post('/signup', async (req, res) => {
+  const { username, email, password, repeatPassword } = req.body;
+  
+  try {
+      if (password !== repeatPassword) {
+          res.send('Passwords do not match');
+          return;
+      }
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+      await User.create({ username, email, password: hashedPassword });
+      
+      req.session.logged_in = true; // Set the session flag
+      res.send('Sign up successful');
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('An error occurred');
+  }
+});
+
 
 router.post('/logout', (req, res) => {
   if (req.session.logged_in) {

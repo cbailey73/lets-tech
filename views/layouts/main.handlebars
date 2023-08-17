@@ -21,9 +21,11 @@
         <ul class="navbar-nav">
           <li class="nav-item">
             {{#if logged_in}}
-            <button class="btn" id="logout">Logout</button>
+            {{!-- <button class="nav-link active" id="logout">Logout</button> --}}
+            <li class="nav-item"><a id="logout-link" class="nav-link active" href="#">Logout</a></li>
             {{else}}
-            <button class="btn" id="login" onClick="navigatetoLogin()">Login</button>
+            {{!-- <button class="btn" id="login">Login</button> --}}
+            <li class="nav-item"><a class="nav-link active" href="/login">Login</a></li>
             {{/if}}
           </li>
           <li class="nav-item"><a class="nav-link active" href="/discuss">Discuss</a></li>
@@ -33,7 +35,7 @@
     </div>
   </nav>
 
-  <main class="container container-fluid mt-5">
+  <main class="container container-fluid">
     {{{ body }}}
   </main>
   <footer>
@@ -41,9 +43,9 @@
   </footer>
 
   {{#if logged_in}}
-  <script src="../../public/js/login.js"></script>
-  {{else}}
   <script src="../../public/js/logout.js"></script>
+  {{else}}
+  <script src="../../public/js/login.js"></script>
   {{/if}}
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>

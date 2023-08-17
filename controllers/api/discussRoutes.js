@@ -3,7 +3,7 @@ const withAuth = require('../../utils/auth');
 const { Post, Comment, User } = require('../../models');
 
 // Route to create a new post
-router.post('/discuss', withAuth, async (req, res) => {
+router.post('/post', withAuth, async (req, res) => {
     try {
         const { title, content } = req.body;
         await Post.create({ title, content });

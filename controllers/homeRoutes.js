@@ -51,9 +51,9 @@ router.get('/discuss', withAuth, async (req, res) => {
 // Render dashboard
 router.get('/dashboard', withAuth, async (req, res) => {
   try {
-      const userId = req.user.id;
       const postData = await Post.findAll({
-          where: { userId: userId }
+        // where: { userId: req.user.id },
+        include: [{ model: User }, { model: Comment }]
       });
       const myPosts = postData.map((post) => post.get({ plain: true }));
 
@@ -65,5 +65,25 @@ router.get('/dashboard', withAuth, async (req, res) => {
       res.status(500).json({ message: 'An error has occurred' });
   }
 });
+
+// Post login
+// router.post('/login', async (req, res) => {
+//   const { username, password } = req.body;
+  
+//   try {
+//       const user = await User.findOne({ where: { username } });
+//       if (user && await bcrypt.compare(password, user.password)) {
+//           // Successful login
+//           req.session.logged_in = true;
+//           res.send('Login successful');
+//       } else {
+//           res.send('Invalid login credentials');
+//       }
+//   } catch (error) {
+//       console.error(error);
+//       res.status(500).send('An error occurred');
+//   }
+// });
+
 
 module.exports = router;
