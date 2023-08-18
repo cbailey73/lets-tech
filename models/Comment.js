@@ -15,6 +15,10 @@ Comment.init(
         type: DataTypes.TEXT,
         allowNull: false,
       },
+      createdOn: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
       postId: {
         type: DataTypes.INTEGER,
         references: {

@@ -19,6 +19,10 @@ Post.init(
         type: DataTypes.TEXT,
         allowNull: false,
       },
+      createdOn: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
       userId: {
         type: DataTypes.INTEGER,
         references: {
