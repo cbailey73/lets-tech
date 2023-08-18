@@ -49,22 +49,47 @@ router.get('/discuss', withAuth, async (req, res) => {
 });
 
 // Render dashboard
+// router.get('/dashboard', withAuth, async (req, res) => {
+//   try {
+//       const postData = await Post.findAll({
+//         // where: { userId: req.user.id },
+//         include: [{ model: User }, { model: Comment }]
+//       });
+//       const myPosts = postData.map((post) => post.get({ plain: true }));
+
+//       res.render('dashboard', { 
+//           myPosts,
+//           logged_in: req.session.logged_in
+//        });
+//   } catch (err) {
+//       res.status(500).json({ message: 'An error has occurred' });
+//   }
+// });
+
+////
+
 router.get('/dashboard', withAuth, async (req, res) => {
   try {
-      const postData = await Post.findAll({
-        // where: { userId: req.user.id },
-        include: [{ model: User }, { model: Comment }]
-      });
-      const myPosts = postData.map((post) => post.get({ plain: true }));
+    const userId = req.session.userId; // Get the user's ID from the session
 
-      res.render('dashboard', { 
-          myPosts,
-          logged_in: req.session.logged_in
-       });
+    const postData = await Post.findAll({
+      where: { userId: userId },
+      include: [{ model: User, attributes: ['username'] }]
+    });
+
+    const myPosts = postData.map((post) => post.get({ plain: true }));
+
+    res.render('dashboard', { 
+      myPosts,
+      logged_in: req.session.logged_in
+    });
   } catch (err) {
-      res.status(500).json({ message: 'An error has occurred' });
+    res.status(500).json({ message: 'An error has occurred' });
   }
 });
+
+
+////
 
 // Post login
 // router.post('/login', async (req, res) => {
