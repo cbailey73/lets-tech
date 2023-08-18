@@ -22,12 +22,17 @@ router.post('/login', async (req, res) => {
       return;
     }
 
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.logged_in = true;
-      
-      res.json({ user: userData, message: 'You are now logged in!' });
-    });
+    if (userData && validPassword) {
+      // Successful login
+      req.session.save(() => {
+        req.session.userId = userData.id;
+        req.session.logged_in = true;
+        
+        res.json({ user: userData, message: 'You are now logged in!' });
+      });
+  } else {
+      res.send('Invalid login credentials');
+  }
 
   } catch (err) {
     res.status(400).json(err);
