@@ -6,15 +6,15 @@ const withAuth = require('../utils/auth');
 router.get('/', async (req, res) => {
   try {
       const postData = await Post.findAll({ include: [
-        {model: Comment},
         {model: User}
       ] 
-    }); // Include comments
-      const posts = postData.map((post) => post.get({ plain: true }));
+    });
 
-      res.render('homepage', {
-        posts
-      });
+    const posts = postData.map((post) => post.get({ plain: true }));
+
+    res.render('homepage', {
+      posts
+    });
   } catch (err) {
       res.status(500).json({ message: 'An error has occurred' });
   }
@@ -30,64 +30,39 @@ router.get('/login', (req, res) => {
 });
 
 // Route to display all posts and comments
-router.get('/discuss', withAuth, async (req, res) => {
-  try {
-      const postData = await Post.findAll({ include: [
-          {model: Comment},
-          {model: User}
-      ] 
-      }); // Include comments
-      const posts = postData.map((post) => post.get({ plain: true }));
-      
-      res.render('discuss', {
-        posts,
-        logged_in: req.session.logged_in,
-      });
-  } catch (err) {
-      res.status(500).json({ message: 'An error has occurred' });
-  }
-});
-
-// Render dashboard
-// router.get('/dashboard', withAuth, async (req, res) => {
+// router.get('/discuss', withAuth, async (req, res) => {
 //   try {
-//       const postData = await Post.findAll({
-//         // where: { userId: req.user.id },
-//         include: [{ model: User }, { model: Comment }]
+//       const postData = await Post.findAll({ include: [
+//           {model: Comment},
+//           {model: User}
+//       ] 
+//       }); // Include comments
+//       const posts = postData.map((post) => post.get({ plain: true }));
+      
+//       res.render('discuss', {
+//         posts,
+//         logged_in: req.session.logged_in,
 //       });
-//       const myPosts = postData.map((post) => post.get({ plain: true }));
-
-//       res.render('dashboard', { 
-//           myPosts,
-//           logged_in: req.session.logged_in
-//        });
 //   } catch (err) {
 //       res.status(500).json({ message: 'An error has occurred' });
 //   }
 // });
 
-////
-
+// Get User Dashboard
 router.get('/dashboard', withAuth, async (req, res) => {
   try {
-    const userId = req.session.userId; // Get the user's ID from the session
-
-    const postData = await Post.findAll({
-      where: { userId: userId },
-      include: [{ model: User, attributes: ['username'] }]
-    });
-
-    const myPosts = postData.map((post) => post.get({ plain: true }));
-
+    const userId = req.session.userId;
+    const userPosts = await Post.findAll({ where: { userId }, include: User });
+    const posts = userPosts.map((post) => post.get({ plain: true }));
     res.render('dashboard', { 
-      myPosts,
+      posts,
       logged_in: req.session.logged_in
-    });
-  } catch (err) {
+     });
+  } catch (error) {
     res.status(500).json({ message: 'An error has occurred' });
   }
 });
-
+////
 
 ////
 
