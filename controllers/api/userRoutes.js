@@ -50,10 +50,14 @@ router.post('/signup', async (req, res) => {
       }
 
       const hashedPassword = await bcrypt.hash(password, 10);
-      await User.create({ username, email, password: hashedPassword });
+      const userData = await User.create({ username, email, password: hashedPassword });
       
-      req.session.logged_in = true; // Set the session flag
-      res.send('Sign up successful');
+      req.session.save(() => {
+        req.session.userId = userData.id;
+        req.session.logged_in = true;
+        
+        res.json({ user: userData, message: 'You are now logged in!' });
+      });
   } catch (error) {
       console.error(error);
       res.status(500).send('An error occurred');
