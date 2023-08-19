@@ -8,7 +8,7 @@
       {{#each posts}}
         <li class="list-group-item">
           <h5>{{this.title}}</h5>
-          <p>{{this.createdAt}}</p>
+          <p>{{format_time this.createdOn}}</p>
           <a href="/api/dashboard/edit/{{this.id}}" class="btn btn-primary">Edit</a>
           <a href="/api/dashboard/delete/{{this.id}}" class="btn btn-danger">Delete</a>
         </li>
@@ -27,7 +27,9 @@
         <label for="content">Content</label>
         <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">Create Post</button>
+      <button id="submit-btn" type="submit" class="btn btn-primary">Create Post</button>
     </form>
   </div>
 </div>
+
+<script src="../public/js/dashboard.js"></script>
