@@ -28,9 +28,9 @@
         </ul>
 
         <h5>Add a Comment</h5>
-        <form id="addCommentForm" action="api/posts/{{post.id}}/addComment" method="POST">
+        <form id="addCommentForm" action="/api/posts/{{post.id}}/addComment" method="POST">
         <div class="form-group">
-            <textarea class="form-control" name="commentContent" rows="3" required></textarea>
+            <textarea id="commentContent" class="form-control" name="commentContent" rows="3" required></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Submit Comment</button>
         </form>
