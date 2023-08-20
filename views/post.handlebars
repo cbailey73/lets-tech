@@ -11,27 +11,24 @@
 <body>
 
   <div class="container mt-4">
-    <div class="card">
+    <div id="post" data-post-id="{{post.id}}" class="card">
       <div class="card-body">
         <h2 class="card-title">{{post.title}}</h2>
+        <p style="font-size:small; color:lightgray;" class="card-text">Posted by: {{post.user.username}} | {{post.lastUpdated}}</p>
         <p class="card-text">{{post.content}}</p>
-        <p class="card-text">Posted by: {{post.user.username}} | {{format_time post.createdOn}}</p>
       </div>
     </div>
 
     <div class="mt-4">
         <h4>Comments</h4>
         <ul class="list-group">
-            {{#each post.Comments}}
-            <li class="list-group-item">
-                <p>{{this.content}}</p>
-                <small>Comment by: {{this.user.username}} | {{format_time this.createdOn}}</small>
-            </li>
+            {{#each post.comments as |comment|}}
+              {{> comments}}
             {{/each}}
         </ul>
 
         <h5>Add a Comment</h5>
-        <form action="api/post/{{post.id}}/addComment" method="POST">
+        <form id="addCommentForm" action="api/posts/{{post.id}}/addComment" method="POST">
         <div class="form-group">
             <textarea class="form-control" name="commentContent" rows="3" required></textarea>
         </div>
@@ -43,6 +40,6 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="../public/js/post.js"></script>
+  <script src="../public/js/comment.js"></script>
 </body>
 </html>

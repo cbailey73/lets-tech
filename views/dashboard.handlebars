@@ -8,9 +8,9 @@
       {{#each posts}}
         <li class="list-group-item">
           <h5>{{this.title}}</h5>
-          <p>{{format_time this.createdOn}}</p>
-          <a href="/api/dashboard/edit/{{this.id}}" class="btn btn-primary">Edit</a>
-          <a href="/api/dashboard/delete/{{this.id}}" class="btn btn-danger">Delete</a>
+          <p>{{this.lastUpdated}}</p>
+          <a href="/edit/{{this.id}}" class="btn btn-primary">Edit</a>
+          <a action="/api/posts/delete/{{this.id}}" class="btn btn-danger">Delete</a>
         </li>
       {{/each}}
     </ul>
@@ -18,7 +18,7 @@
   
   <div class="mt-4">
     <h4>Add a New Post</h4>
-    <form action="/api/dashboard/addPost" method="POST">
+    <form id="createPostForm" action="/api/posts/" method="POST">
       <div class="form-group">
         <label for="title">Title</label>
         <input type="text" class="form-control" id="title" name="title" required>
@@ -32,4 +32,4 @@
   </div>
 </div>
 
-<script src="../public/js/dashboard.js"></script>
+<script src="../public/js/post.js"></script>

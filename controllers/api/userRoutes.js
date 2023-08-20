@@ -25,7 +25,7 @@ router.post('/login', async (req, res) => {
     if (userData && validPassword) {
       // Successful login
       req.session.save(() => {
-        req.session.userId = userData.id;
+        req.session.user_id = userData.id;
         req.session.logged_in = true;
         
         res.json({ user: userData, message: 'You are now logged in!' });
@@ -53,11 +53,13 @@ router.post('/signup', async (req, res) => {
       const userData = await User.create({ username, email, password: hashedPassword });
       
       req.session.save(() => {
-        req.session.userId = userData.id;
+        req.session.user_id = userData.id;
         req.session.logged_in = true;
         
-        res.json({ user: userData, message: 'You are now logged in!' });
+        // res.json({ message: 'You are now logged in!' });
       });
+
+      res.redirect('/');
   } catch (error) {
       console.error(error);
       res.status(500).send('An error occurred');
