@@ -17,7 +17,7 @@ router.get('/:id', withAuth, async (req, res) => {
 
 // Create a new post
 router.post('/', withAuth, async (req, res) => {
-  const lastUpdated = new Date().toLocaleTimeString();
+  const lastUpdated = new Date().toLocaleDateString();
 
   try {
     const newPost = await Post.create({
