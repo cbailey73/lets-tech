@@ -16,7 +16,7 @@
             <div class="card-body">
               <h5 class="card-title">{{post.title}}</h5>
               <p style="font-size:small; color:lightgray;" class="card-text">Posted by: {{post.user.username}} | {{post.lastUpdated}}</p>
-              <a href="/post/{{post.id}}" class="btn btn-primary">Read More</a>
+              {{> post-button}}
             </div>
           </div>
         </div>
