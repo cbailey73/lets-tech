@@ -50,8 +50,9 @@ router.post('/:id/addComment', withAuth, async (req, res) => {
       });
   
       res.status(201).json(newComment);
-      res.redirect(`/post/${post_id}`);
+      // res.redirect(`/post/${post_id}`);
     } catch (error) {
+      console.error(error);
       res.status(500).json({ message: 'An error has occurred' });
     }
   });
