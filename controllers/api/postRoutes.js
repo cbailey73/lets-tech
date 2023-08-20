@@ -42,14 +42,15 @@ router.post('/:id/addComment', withAuth, async (req, res) => {
       const user_id = req.session.user_id;
       const { content } = req.body;
   
-      await Comment.create({
+      const newComment = await Comment.create({
         content,
         lastUpdated,
         post_id,
         user_id,
       });
   
-      res.redirect(`/post/${postId}`);
+      res.status(201).json(newComment);
+      res.redirect(`/post/${post_id}`);
     } catch (error) {
       res.status(500).json({ message: 'An error has occurred' });
     }
@@ -76,7 +77,7 @@ router.put('/:id', withAuth, async (req, res) => {
         return;
       }
 
-          res.status(200).json({ message: 'Post updated successfully.' });
+      res.status(201).json(updatedPost);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to update the post.' });
