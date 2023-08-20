@@ -2,31 +2,29 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   // Function to fetch comments for a post
-  const fetchComments = async (post_id) => {
-    try {
-      const response = await fetch(`/post/${post_id}/comments`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+  // const fetchComments = async (post_id) => {
+  //   try {
+  //     const response = await fetch(`/post/${post_id}/comments`, {
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     });
 
-      if (response.ok) {
-        const data = await response.json();
-        return data;
-        // displayComments(data); 
-      } else {
-        throw new Error('Failed to fetch comments');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       return data;
+  //       // displayComments(data); 
+  //     } else {
+  //       throw new Error('Failed to fetch comments');
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   // Function to add a new comment to a post
   const addComment = async (post_id, content) => {
-
-    const lastUpdated = new Date();
 
     try {
       const response = await fetch(`/api/posts/${post_id}/addComment`, {
@@ -34,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ content, lastUpdated }),
+        body: JSON.stringify({ content }),
       });
 
       if (response.ok) {
@@ -56,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const post_id = postElement.getAttribute('data-post-id');
 
   console.log(`Post ID: ${post_id}`);
-  fetchComments(post_id);
+  // fetchComments(post_id);
 
   // Handle form submission for adding a comment
   const addCommentForm = document.querySelector('#addCommentForm');
