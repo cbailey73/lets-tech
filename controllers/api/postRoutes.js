@@ -35,10 +35,12 @@ router.post('/', withAuth, async (req, res) => {
 
 // Create a new comment by post ID
 router.post('/:id/addComment', withAuth, async (req, res) => {
+  const lastUpdated = new Date().toLocaleDateString();
+
     try {
       const post_id = req.params.id;
       const user_id = req.session.user_id;
-      const { content, lastUpdated } = req.body;
+      const { content } = req.body;
   
       await Comment.create({
         content,

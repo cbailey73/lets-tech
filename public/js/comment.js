@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (response.ok) {
         const data = await response.json();
-        displayComments(data); // Implement this function to display comments
+        return data;
+        // displayComments(data); 
       } else {
         throw new Error('Failed to fetch comments');
       }
