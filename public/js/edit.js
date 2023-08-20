@@ -1,42 +1,32 @@
-// Function to handle post update
-const editPostFormHandler = async (event) => {
-    event.preventDefault();
+document.addEventListener('DOMContentLoaded', () => {
+    const editPostForm = document.querySelector('#editPostForm');
+    const postIdInput = document.querySelector('#postId');
   
-    const title = document.querySelector('#title').value.trim();
-    const content = document.querySelector('#content').value.trim();
-    
-    // Function to extract post ID from the URL
-    const getPostIdFromURL = () => {
-        const url = window.location.pathname; // Get the current URL
-        const parts = url.split('/'); // Split the URL into parts using '/'
-        const postIdIndex = parts.indexOf('post'); // Find the index of 'post' in the URL
-          
-        if (postIdIndex !== -1 && postIdIndex < parts.length - 1) {
-        // If 'post' is found and there's a part after it, assume it's the post ID
-        return parts[postIdIndex + 1];
+    editPostForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+  
+      const title = document.querySelector('#title').value;
+      const content = document.querySelector('#content').value;
+      const postId = postIdInput.value;
+  
+      try {
+        const response = await fetch(`/api/posts/${postId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ title, content }),
+        });
+  
+        if (response.ok) {
+          // Post updated successfully, you can handle this as needed
+          window.location.href = `/post/${postId}`; // Redirect to the post view page
+        } else {
+          throw new Error('Failed to update the post');
         }
-          
-        return null; // Return null if no post ID is found
-        };
-          
-        // Extract post Id
-        const postId = getPostIdFromURL();
-  
-    if (title && content && postId) {
-      const response = await fetch(`/api/dashboard/edit/${postId}`, {
-        method: 'POST',
-        body: JSON.stringify({ title, content }),
-        headers: { 'Content-Type': 'application/json' },
-      });
-  
-      if (response.ok) {
-        document.location.replace('/dashboard'); // Redirect to the dashboard or another page
-      } else {
-        alert('Failed to update post');
+      } catch (error) {
+        console.error(error);
       }
-    }
-  };
-  
-  // Add event listener to the edit post form
-  document.querySelector('#edit-post-form').addEventListener('submit', editPostFormHandler);
+    });
+  });
   

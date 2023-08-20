@@ -1,48 +1,34 @@
-// Function to handle comment submission
-const commentFormHandler = async (event) => {
-    event.preventDefault();
-  
-    const commentContent = document.querySelector('#commentContent').value.trim();
+document.addEventListener('DOMContentLoaded', () => {
+    // Function to create a new post
+    const createPost = async (title, content) => {
 
-    // Function to extract post ID from the URL
-    const getPostIdFromURL = () => {
-    const url = window.location.pathname; // Get the current URL
-    const parts = url.split('/'); // Split the URL into parts using '/'
-    const postIdIndex = parts.indexOf('post'); // Find the index of 'post' in the URL
+      try {
+        const response = await fetch('/api/posts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ title, content }),
+        });
   
-    if (postIdIndex !== -1 && postIdIndex < parts.length - 1) {
-      // If 'post' is found and there's a part after it, assume it's the post ID
-      return parts[postIdIndex + 1];
-    }
-  
-    return null; // Return null if no post ID is found
+        if (response.ok) {
+          // Post created successfully, you can handle this as needed
+          window.location.reload(); // Reload the page to display the new post
+        } else {
+          throw new Error('Failed to create a post');
+        }
+      } catch (error) {
+        console.error(error);
+      }
     };
   
-    // Extract post Id
-    const postId = getPostIdFromURL();
-    
-    if (postId) {
-        console.log(`Post ID: ${postId}`);
-    } else {
-        console.log('No Post ID found in the URL');
-    }
-  
-    if (commentContent && postId) {
-      const response = await fetch(`/api/post/${postId}/addComment`, {
-        method: 'POST',
-        body: JSON.stringify({ commentContent }),
-        headers: { 'Content-Type': 'application/json' },
-      });
-  
-      if (response.ok) {
-        // Reload the page to display the new comment
-        location.reload();
-      } else {
-        alert('Failed to add comment');
-      }
-    }
-  };
-  
-// Add event listener to the comment form
-document.querySelector('#comment-form').addEventListener('submit', commentFormHandler);
+    // Handle form submission for creating a new post
+    const createPostForm = document.querySelector('#createPostForm');
+    createPostForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const title = document.querySelector('#title').value;
+      const content = document.querySelector('#content').value;
+      createPost(title, content);
+    });
+  });
   
