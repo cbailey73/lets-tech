@@ -1,5 +1,3 @@
-// public/js/single-post.js
-
 document.addEventListener('DOMContentLoaded', () => {
   // Function to fetch comments for a post
   // const fetchComments = async (post_id) => {
@@ -36,8 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       if (response.ok) {
-        // Comment added successfully, you can handle this as needed
-        window.location.reload(); // Reload the page to display the new comment
+        // window.location.replace(`/post/:${post_id}`); // Reload the page to display the new comment
       } else {
         throw new Error('Failed to add a comment');
       }
@@ -53,14 +50,14 @@ document.addEventListener('DOMContentLoaded', () => {
 // Extract the postId from the data attribute
   const post_id = postElement.getAttribute('data-post-id');
 
-  console.log(`Post ID: ${post_id}`);
+  // console.log(`Post ID: ${post_id}`);
   // fetchComments(post_id);
 
   // Handle form submission for adding a comment
-  const addCommentForm = document.querySelector('#addCommentForm');
+  const addCommentForm = document.querySelector('#submit-button');
   addCommentForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const content = document.querySelector('#commentContent').value;
+    const content = document.querySelector('#content').value;
     addComment(post_id, content);
   });
 });

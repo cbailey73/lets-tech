@@ -30,9 +30,9 @@
         <h5>Add a Comment</h5>
         <form id="addCommentForm" action="/api/posts/{{post.id}}/addComment" method="POST">
         <div class="form-group">
-            <textarea id="commentContent" class="form-control" name="commentContent" rows="3" required></textarea>
+            <textarea id="content" class="form-control" name="content" rows="3" required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Submit Comment</button>
+        <button type="submit" id="submit-button" class="btn btn-primary">Submit Comment</button>
         </form>
     </div>
   </div>
