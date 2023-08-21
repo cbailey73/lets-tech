@@ -1,26 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Function to fetch comments for a post
-  // const fetchComments = async (post_id) => {
-  //   try {
-  //     const response = await fetch(`/post/${post_id}/comments`, {
-  //       method: 'GET',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     });
-
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       return data;
-  //       // displayComments(data); 
-  //     } else {
-  //       throw new Error('Failed to fetch comments');
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
   // Function to add a new comment to a post
   const addComment = async (post_id, content) => {
 
@@ -34,7 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       if (response.ok) {
-        // window.location.replace(`/post/:${post_id}`); // Reload the page to display the new comment
+        window.location.replace(`/post/${post_id}`);
+        window.location.reload();
       } else {
         throw new Error('Failed to add a comment');
       }
@@ -43,15 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Call the fetchComments function when the page loads
   // Get the HTML element with the data attribute
   const postElement = document.getElementById('post');
 
-// Extract the postId from the data attribute
+  // Extract the postId from the data attribute
   const post_id = postElement.getAttribute('data-post-id');
-
-  // console.log(`Post ID: ${post_id}`);
-  // fetchComments(post_id);
 
   // Handle form submission for adding a comment
   const addCommentForm = document.querySelector('#submit-button');
