@@ -26,7 +26,7 @@ router.post('/', withAuth, async (req, res) => {
       user_id: req.session.user_id,
     });
 
-    res.status(201).json(newPost);
+    res.redirect('/dashboard')
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to create a new post.' });
@@ -49,8 +49,7 @@ router.post('/:id/addComment', withAuth, async (req, res) => {
         user_id,
       });
   
-      res.status(201).json(newComment);
-      // res.redirect(`/post/${post_id}`);
+      res.redirect(`/post/${post_id}`);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'An error has occurred' });
@@ -78,7 +77,8 @@ router.put('/:id', withAuth, async (req, res) => {
         return;
       }
 
-      res.status(201).json(updatedPost);
+      res.redirect('/dashboard');
+      // res.status(201).json(updatedPost);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to update the post.' });
