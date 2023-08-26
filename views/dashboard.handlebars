@@ -25,7 +25,7 @@
           <h5>{{this.title}}</h5>
           <p>{{this.lastUpdated}}</p>
           <a href="/edit/{{this.id}}" class="btn btn-primary">Edit</a>
-          <a action="/api/posts/delete/{{this.id}}" class="btn btn-danger">Delete</a>
+          <a action="/api/posts/delete/{{this.id}}" onclick="deletePost({{this.id}})" class="btn btn-danger">Delete</a>
         </li>
       {{/each}}
     </ul>

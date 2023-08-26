@@ -30,5 +30,29 @@ document.addEventListener('DOMContentLoaded', () => {
       const content = document.querySelector('#content').value;
       createPost(title, content);
     });
+
+
   });
+
+    // Function to delete a post
+    async function deletePost(postId) {
+
+      try {
+        const response = await fetch(`/api/posts/${postId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+  
+        if (response.ok) {
+          // Post created successfully, you can handle this as needed
+          window.location.reload(); // Reload the page to display the new post
+        } else {
+          throw new Error('Failed to delete post');
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
   
