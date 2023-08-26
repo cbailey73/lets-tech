@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
           body: JSON.stringify({ title, content }),
         });
   
+        console.log(response);
+        
         if (response.ok) {
           // Post updated successfully, you can handle this as needed
           window.location.href = `/post/${postId}`; // Redirect to the post view page

@@ -77,8 +77,8 @@ router.put('/:id', withAuth, async (req, res) => {
         return;
       }
 
-      res.redirect('/dashboard');
-      // res.status(201).json(updatedPost);
+      // res.redirect('/dashboard');
+      res.status(201).json(updatedPost);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to update the post.' });
