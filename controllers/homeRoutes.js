@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 
     const posts = postData.map((post) => post.get({ plain: true }));
 
-    res.render('homepage', { posts });
+    res.render('homepage', { posts, logged_in: req.session.logged_in });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to retrieve posts.' });
@@ -70,7 +70,7 @@ router.get('/edit/:id', async (req, res) => {
 
     const post = postData.get({ plain: true })
 
-    res.render('edit', post);
+    res.render('edit', { post, logged_in: req.session.logged_in });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to retrieve posts.' });
@@ -86,6 +86,22 @@ router.get('/login', (req, res) => {
 
   res.render('login');
 });
+
+// router.get('/api/users/login', (req, res) => {
+//   if (req.session.logged_in) {
+//     res.redirect('/');
+//     return;
+//   }
+
+// });
+
+// router.get('/api/users/signup', (req, res) => {
+//   if (req.session.logged_in) {
+//     res.redirect('/');
+//     return;
+//   }
+
+// });
 
 // Get User Dashboard
 router.get('/dashboard', withAuth, async (req, res) => {
