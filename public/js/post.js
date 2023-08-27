@@ -12,8 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
   
         if (response.ok) {
-          // Post created successfully, you can handle this as needed
-          window.location.reload(); // Reload the page to display the new post
+          window.location.reload();
         } else {
           throw new Error('Failed to create a post');
         }
@@ -34,25 +33,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   });
 
-    // Function to delete a post
-    async function deletePost(postId) {
+// Function to delete a post
+async function deletePost(postId) {
 
-      try {
-        const response = await fetch(`/api/posts/${postId}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+  try {
+  const response = await fetch(`/api/posts/${postId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
   
-        if (response.ok) {
-          // Post created successfully, you can handle this as needed
-          window.location.reload(); // Reload the page to display the new post
-        } else {
-          throw new Error('Failed to delete post');
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
+    if (response.ok) {
+    window.location.reload(); 
+    } else {
+      throw new Error('Failed to delete post');
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
   

@@ -1,4 +1,4 @@
-// loginFormHandler
+// Login Form Handler
 const loginFormHandler = async (event) => {
   event.preventDefault();
 
@@ -20,7 +20,7 @@ const loginFormHandler = async (event) => {
   }
 };
 
-// signupFormHandler
+// Signup Form Handler
 const signupFormHandler = async (event) => {
   event.preventDefault();
 
