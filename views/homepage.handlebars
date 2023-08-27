@@ -9,13 +9,14 @@
 <body>
 
   <div class="container mt-4">
+    <h1 class="mb-4">Recent Posts</h1>
     <div class="row">
       {{#each posts as |post|}}
         <div id="post" data-post-id="{{post.id}}" class="col-md-4 mb-4">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">{{post.title}}</h5>
-              <p style="font-size:small; color:lightgray;" class="card-text">Posted by: {{post.user.username}} | {{post.lastUpdated}}</p>
+              <h4 class="card-title">{{post.title}}</h4>
+              <p style="font-size:small; color:lightgray;" class="card-text">{{post.user.username}} | {{format_time post.lastUpdated}}</p>
               {{> post-button}}
             </div>
           </div>

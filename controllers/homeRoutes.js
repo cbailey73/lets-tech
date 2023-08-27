@@ -87,27 +87,15 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
-// router.get('/api/users/login', (req, res) => {
-//   if (req.session.logged_in) {
-//     res.redirect('/');
-//     return;
-//   }
-
-// });
-
-// router.get('/api/users/signup', (req, res) => {
-//   if (req.session.logged_in) {
-//     res.redirect('/');
-//     return;
-//   }
-
-// });
-
 // Get User Dashboard
 router.get('/dashboard', withAuth, async (req, res) => {
   try {
     const userId = req.session.user_id;
-    const userPosts = await Post.findAll({ where: { user_id: userId }, include: User });
+    const userPosts = await Post.findAll({ 
+      where: { user_id: userId }, 
+      include: User,
+      order: [['lastUpdated', 'DESC']],
+    });
     const posts = userPosts.map((post) => post.get({ plain: true }));
     res.render('dashboard', { 
       posts,

@@ -17,7 +17,7 @@ router.get('/:id', withAuth, async (req, res) => {
 
 // Create a new post
 router.post('/', withAuth, async (req, res) => {
-  const lastUpdated = new Date().toLocaleDateString();
+  const lastUpdated = new Date();
 
   try {
     const newPost = await Post.create({
@@ -35,7 +35,7 @@ router.post('/', withAuth, async (req, res) => {
 
 // Create a new comment by post ID
 router.post('/:id/addComment', withAuth, async (req, res) => {
-  const lastUpdated = new Date().toLocaleDateString();
+  const lastUpdated = new Date();
 
     try {
       const post_id = req.params.id;
@@ -57,12 +57,14 @@ router.post('/:id/addComment', withAuth, async (req, res) => {
   });
 
 router.put('/:id', withAuth, async (req, res) => {
+  const lastUpdated = new Date();
+
     try {
       const updatedPost = await Post.update(
         {
           title: req.body.title,
           content: req.body.content,
-          lastUpdated: req.body.lastUpdated
+          lastUpdated,
         },
         {
           where: {
