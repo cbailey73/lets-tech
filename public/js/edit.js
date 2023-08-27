@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const editPostForm = document.querySelector('#editPostForm');
     const postIdInput = document.querySelector('#postId');
   
+    // Function to edit post upon submission of the edit post form
     editPostForm.addEventListener('submit', async (e) => {
       e.preventDefault();
   
@@ -21,8 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(response);
         
         if (response.ok) {
-          // Post updated successfully, you can handle this as needed
-          window.location.href = `/post/${postId}`; // Redirect to the post view page
+          window.location.href = `/post/${postId}`;
         } else {
           throw new Error('Failed to update the post');
         }
