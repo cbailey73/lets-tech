@@ -14,26 +14,26 @@
     <div id="post" data-post-id="{{post.id}}" class="card">
       <div class="card-body">
         <h2 class="card-title">{{post.title}}</h2>
-        <p style="font-size:small; color:lightgray;" class="card-text">Posted by: {{post.user.username}} | {{post.lastUpdated}}</p>
+        <p style="font-size:medium; color:darkblue;" class="card-text"><span style="font-weight:bold;">{{post.user.username}}</span> | {{format_time post.lastUpdated}}</p>
         <p class="card-text">{{post.content}}</p>
       </div>
     </div>
 
-    <div class="mt-4">
-        <h4>Comments</h4>
-        <ul class="list-group">
-            {{#each post.comments as |comment|}}
-              {{> comments}}
-            {{/each}}
-        </ul>
-
-        <h5>Add a Comment</h5>
+    <div class="mt-4 mb-4">
+        <h5 class="mt-2">Add a Comment</h5>
         <form id="addCommentForm" action="/api/posts/{{post.id}}/addComment" method="POST">
         <div class="form-group">
             <textarea id="content" class="form-control" name="content" rows="3" required></textarea>
         </div>
         <button type="submit" id="submit-button" class="btn btn-primary">Submit Comment</button>
         </form>
+
+        <h4 class="mt-4">Comments</h4>
+        <ul class="list-group">
+            {{#each post.comments as |comment|}}
+              {{> comments}}
+            {{/each}}
+        </ul>
     </div>
   </div>
 
