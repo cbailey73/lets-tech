@@ -24,7 +24,6 @@ router.post('/login', async (req, res) => {
     }
 
     if (userData && validPassword) {
-      // Successful login
       req.session.save(() => {
         req.session.user_id = userData.id;
         req.session.logged_in = true;
