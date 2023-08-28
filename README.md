@@ -25,3 +25,6 @@ The code for creating the navbar was obtained by following this tutorial: https:
 The code for passing variables through partials was obtained by following this tutorial: https://stackoverflow.com/questions/11523331/passing-variables-through-handlebars-partial
 
 The code for passing objects through functions written on handlebars templates was obtained by following this tutorial: https://stackoverflow.com/questions/26642048/pass-object-as-parameter-to-onclick-method-in-handlebars-template
+
+## Deployment
+You can view the website here: https://secret-beyond-52845-feb3c4f0627c.herokuapp.com/
